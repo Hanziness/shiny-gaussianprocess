@@ -24,8 +24,8 @@ kernel_brownBridge <- function(x, y, ...) {
 }
 
 kernel_squareExp1D <- function(x, y, alpha = 1, ...) {
-    # this is actually the 2-norm but it does nothing on 1x1 matrices :)
-    n = length(x)
+    # this actually uses the 2-norm, but we can avoid it since it has no effect
+    # on 1-dimensional vectors
     return(exp(-alpha * (x - y)^2))
 }
 
@@ -107,11 +107,6 @@ ui <- fluidPage(
         # Sidebar with a slider input for number of bins
         sidebarLayout(
             sidebarPanel(
-                # sliderInput("bins",
-                #            "Number of bins:",
-                #            min = 1,
-                #            max = 50,
-                #            value = 30)
                 selectInput(
                     "kernelF",
                     "Kernel function to use",
@@ -183,7 +178,7 @@ ui <- fluidPage(
             ),
 
 
-            # Show a plot of the generated distribution
+            # Show a plot of the generated trajectory
             mainPanel(
                plotOutput("gaussianTrajectory")
             )
